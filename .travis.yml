@@ -1,12 +1,8 @@
 language: java
-notifications:
-  hipchat:
-    rooms:
-      secure: heRjw4ntplj7zbOUC/C3TTtJuvtbXHyvi3KMrKt49zW2FSBZyBGBfDyWdqaOCBIZYb6K0Mk3ryp2BxMwGF2ST5sSX2Vi8D4ms14g6FSf2rwED1ijbI2ZEhy/E8iY+g8MOYkoMW/7MXgUr9lWL/k4mPepnTdbGuYhdyOt7A5mWe4=
 deploy:
   provider: releases
   api_key:
-    secure: Eico+tlQrfUdJDiSQm14jzFjW64F/s3qipUW9sw9W5RI6MJ2P12Rh7zi6+Eoma+5j4o/m0wQRaI6y0ltSsxJhrbDXMLoGPgPPWaH1sTKiOwYElIM38MESfreLdFqwGIvVo489y+BMb/RJEmRVatnPEIABiyiIMWRtwiRQuRkTgM=
+    secure: jo5fCoVceRG2gS9EQ0KdWs5EMb59FV/YNOh7Jkp3BOv++W+x2LJ48hMIo6Q1Ak0QlxQ0VJjFmuVkRZsBYRZj6Y/D6JJiVzAIJ7WtF4WFILN5b63hKyQnZHh4km1g0NdB11JYp+nmOxn3OpstFlMdsFFXNBXTb6CnWffYBgnBPeaydBU1ky0/Z3RSObdoBDPbA3tTaEuEVi4wuX1f+yRvfNVYDbu+R+fEt+9wieOhD1bQZ7Vom8EVj/7E6wVitQW9vPE4AAPeL7tP7IZyN51h1gpW7Qyjmq3sijyBD4USz3TMRUJ4Ne06uZoQGd3AT45rj0K/revy5/u5qttUC9qa4ArParpeaAusow69eAOMn1f908JL7HY4qnbvJAPs+gJJ0qK3aLPGzrOLaLlFtTJUl2UdPF0hfXECEqhnu6Rq+TOnbIRelu9dO8alK1ADYkYZKJEXLh9QGvVBENAhdHDrQtgpL72FL11zo9yS+TZ6/D+pkx7TX4pWUAAs8FV+tHba095LKDPNsavNit9oZ6iQFVSRo3RlWNn5zyTONj32gG4LWdZ3I4gTH9UhQ7g09iS8CGN20HCcmVKyUrnoS3VK2L9AbKBq+lvyd0AhgrU83CSGCDB3vFAx2WmHHZncQs+oACcgOPiB44Wof2hNXLb5ZKfGDZmZHkkD0VXJVhGoNCY=
   file: build/libs/xlr-rundeck-plugin-1.0.0.jar
   skip_cleanup: true
   on:
