@@ -1,0 +1,15 @@
+language: java
+notifications:
+  hipchat:
+    rooms:
+      secure: heRjw4ntplj7zbOUC/C3TTtJuvtbXHyvi3KMrKt49zW2FSBZyBGBfDyWdqaOCBIZYb6K0Mk3ryp2BxMwGF2ST5sSX2Vi8D4ms14g6FSf2rwED1ijbI2ZEhy/E8iY+g8MOYkoMW/7MXgUr9lWL/k4mPepnTdbGuYhdyOt7A5mWe4=
+deploy:
+  provider: releases
+  api_key:
+    secure: Eico+tlQrfUdJDiSQm14jzFjW64F/s3qipUW9sw9W5RI6MJ2P12Rh7zi6+Eoma+5j4o/m0wQRaI6y0ltSsxJhrbDXMLoGPgPPWaH1sTKiOwYElIM38MESfreLdFqwGIvVo489y+BMb/RJEmRVatnPEIABiyiIMWRtwiRQuRkTgM=
+  file: build/libs/xlr-rundeck-plugin-1.0.0.jar
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
+    repo: xebialabs-community/xlr-rundeck-plugin
