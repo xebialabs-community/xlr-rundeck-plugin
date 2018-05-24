@@ -1,6 +1,8 @@
 
 plugins {
-    id "com.xebialabs.xlr.docker" version "1.1.12"
+    id "com.github.hierynomus.license" version "0.14.0"
+    id "com.xebialabs.xl.docker" version "1.1.0"
+    id "nebula.release" version "6.0.0"
 }
 
 apply plugin: 'java'
@@ -8,19 +10,28 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
-xlrDocker {
-    version = '5.0.1.10'
-    download("xlr_community_plugins") {
-        src(["https://github.com/xebialabs-community/xlr-xlrelease-plugin/releases/download/v1.7.2/xlr-xlrelease-plugin-1.7.2.jar"])
-        dest file("src/downloads/plugins/xlr-xlrelease-plugin-1.7.2.jar")
-        acceptAnyCertificate true
-    }
+xlDocker {
+    compileImage = 'xebialabs/xlr_dev_compile'
+    compileVersion = 'v8.0.0.1'
+    runImage = 'xebialabs/xlr_dev_run'
+    runVersion = 'v8.0.0.2'
+    runPortMapping = '15516:5516'
 }
 
-group = 'com.xebialabs.deployit.community'
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-version = '1.0.0'
+if (!project.hasProperty('release.scope')) {
+    project.ext['release.scope'] = 'patch'
+}
+
+if (!project.hasProperty('release.useLastTag')) {
+    project.ext['release.useLastTag'] = true
+}
+
+license {
+    header rootProject.file('License.md')
+    strictCheck false
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'XEBIALABS'
+}
 
 
 repositories {
@@ -30,13 +41,4 @@ repositories {
         url 'https://dist.xebialabs.com/public/maven2'
     }
 }
-
-configurations {
-    distBundle {
-        transitive = false
-    }
-}
-
-
-
 
