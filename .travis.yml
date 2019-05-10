@@ -1,9 +1,8 @@
 language: java
 sudo: false
 notifications:
-  hipchat:
-    rooms:
-      secure: OlIO4DA0xfqdHqS2ytSfDucjIoncHBgLDFjDi1u+qsLOPBeYpYuNJOZkW531yKPFS/na8BjS5WzjrdZW1Wa2I41X2KdNEqOBPxCNsDlvRzEsMUXGCekTEkIaVKgyD8LsAqku+I0CFRsYCQCxRz6yufEenDf7VwdhbM/345mopkI=
+  slack:
+    secure: FI0eRMIEYImVL6JsoNonZ/EejWUrPP39b4go8G1xgMVxz4CPgGpFJevbDBOfEG6sptVGZqaTMRJOHy6W5L761JADvb+ouAX2a7St/r329IOqaAF+ChPKd9Ia2Y2Zs03X61Bdormwee3ztbxcvZI2LHEbR8XF8N+tqb4iE3o5VV/ATzDb+6WJJvdrL6sQETefZJlMb1Che5uziQfHaR18qfJ/rP74u8IV7X7TLMqQ9TIn4okSecx3veO/5lPkc9j7G7ugWQieUMnHeXWmVyiXORtus6kD0OKM5Ra7NY57B1NdqgaQT9NmG5ufN6HNwrVBNqp7b9k8bW+uROL6BKyV3ymSTStG8k3XuIDVP5BEIvj/OirrHxyQ1o6dWnow+vPt0jPXcAeIWh5MmBsBgaiNnFBPs1bqWAmDFZIxrDa6puy3BRiz/goK+7D2Yjvll5EdRknfr6n/gIDKH6/rK3oTUjCBi/uhycnbKPqG0wUxB7NAWpeK1JKZTdO4rXs70eV4TpC7fDYzcwvAHrirCTMKHT/OVeUajFBEyyCJfiCml3xZocV4PRkybeLv1J/soYBaEkGyLKxaQHAT+2+X4PAaRUJtSfO1yehW5FBddF534dZoveNy3neDAt7qXsN5+Kj/Uhoq0OkdlIP+v+CGMfxym+S1mX68bH2YUVA0qNEkT5k=
 deploy:
   provider: releases
   api_key:
