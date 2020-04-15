@@ -28,9 +28,9 @@ for key,value in rundeckJobOptions.iteritems():
 
 # Authenticate either using username/apssword or use auth token
 if rdAuthToken:
-     rundeck = RundeckClient.builder().url(rdUrl).token(rdAuthToken).build() 
+    rundeck = RundeckClient.builder().url(rdUrl).token(rdAuthToken).build()
 else:
-     rundeck = RundeckClient.builder().url(rdUrl).login(rdUsername, rdPassword).build()
+    rundeck = RundeckClient.builder().url(rdUrl).login(rdUsername, rdPassword).build()
 
 
 
@@ -42,43 +42,49 @@ jobToRun  = None
 jobs      = rundeck.getJobs(rundeckProject);
 
 if rundeckJobGroup:
-   rdjobFullName = "%s%s%s" % (rundeckJobGroup,"/",rundeckJobName)
+    rdjobFullName = "%s%s%s" % (rundeckJobGroup,"/",rundeckJobName)
 else:
     rdjobFullName = rundeckJobName
 
 
 for job in jobs:
     if job.getFullName() == rdjobFullName:
-       jobToRun = job
-       break
+        jobToRun = job
+        break
 
 if jobToRun is None:
-   raise TypeError("No job found with name:\"%s\" in project: \"%s\" \n" % (rdjobFullName, rundeckProject))
+    raise Exception("No job found with name:\"%s\" in project: \"%s\" \n" % (rdjobFullName, rundeckProject))
 else:
-     print "Job found: %s in project: %s \n" % (jobToRun.getFullName(),rundeckProject)
+    print "Job found: %s in project: %s \n" % (jobToRun.getFullName(),rundeckProject)
 
 # Set the Job Options
 rundeckJobName = jobToRun.getFullName()
 runJob         = RunJobBuilder.builder().setJobId(jobToRun.id).setOptions(jobOptions.toProperties()).build()
 
 
+def printUrl():
+    print "Job url: {}/project/{}/execution/show/{}".format(rdUrl, rundeckProject, rundeckExecutionId)
+
+
 # Either wait for execution or fire and forget
 if rundeckdWaitForJob == True :
-  execution           = rundeck.runJob(runJob)
-  rundeckJobStatus    = execution.status.toString()
-  rundeckJobDuration  = execution.duration
-  rundeckExecutionId  = execution.id
-  print "Execution #%s for job %s succeeded\n" % (rundeckExecutionId, rundeckJobName)
+    execution           = rundeck.runJob(runJob)
+    rundeckJobStatus    = execution.status.toString()
+    rundeckJobDuration  = execution.duration
+    rundeckExecutionId  = execution.id
+    print "Triggering Execution #%s for job %s succeeded\n" % (rundeckExecutionId, rundeckJobName)
+    printUrl()
 
-  # Task should fail if output is not SUCCEEDED
-  if execution.status != RundeckExecution.ExecutionStatus.SUCCEEDED:
-     raise TypeError("Execution #%s for job %s FAILED\n" % (rundeckExecutionId, rundeckJobName))
+    # Task should fail if output is not SUCCEEDED
+    if execution.status != RundeckExecution.ExecutionStatus.SUCCEEDED:
+        raise Exception("Execution #%s for job %s FAILED\n" % (rundeckExecutionId, rundeckJobName))
 
 else:
-   execution = rundeck.triggerJob(runJob)
-   rundeckJobStatus   = "%s\n" % execution.url
-   rundeckJobDuration = -1
-   rundeckExecutionId = execution.id
-   print rundeckJobStatus     
+    execution = rundeck.triggerJob(runJob)
+    rundeckJobStatus   = "%s\n" % execution.url
+    rundeckJobDuration = -1
+    rundeckExecutionId = execution.id
+    printUrl()
+    print rundeckJobStatus
 
 
