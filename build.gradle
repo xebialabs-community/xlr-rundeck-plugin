@@ -1,44 +1,70 @@
+import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
-    id "com.github.hierynomus.license" version "0.14.0"
-    id "com.xebialabs.xl.docker" version "1.1.0"
-    id "nebula.release" version "6.0.0"
+  id 'com.github.hierynomus.license' version '0.14.0'
+  id 'nebula.release' version '11.0.0'
+  id "com.xebialabs.xl.docker" version '1.1.0'
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
 apply plugin: 'maven'
-
-xlDocker {
-    compileImage = 'xebialabs/xlr_dev_compile'
-    compileVersion = 'v8.0.0.1'
-    runImage = 'xebialabs/xlr_dev_run'
-    runVersion = 'v8.0.0.2'
-    runPortMapping = '15516:5516'
-}
-
-if (!project.hasProperty('release.scope')) {
-    project.ext['release.scope'] = 'patch'
-}
-
-if (!project.hasProperty('release.useLastTag')) {
-    project.ext['release.useLastTag'] = true
-}
-
-license {
-    header rootProject.file('License.md')
-    strictCheck false
-    ext.year = Calendar.getInstance().get(Calendar.YEAR)
-    ext.name = 'XEBIALABS'
-}
-
 
 repositories {
   mavenLocal()
   mavenCentral()
   maven {
-        url 'https://dist.xebialabs.com/public/maven2'
-    }
+    url 'https://dist.xebialabs.com/public/maven2'
+  }
 }
 
+def apiVersion = "2018.6.5"
+
+configurations {
+  extraLibs
+}
+
+dependencies {
+  implementation "com.xebialabs.deployit:udm-plugin-api:$apiVersion"
+  extraLibs group: 'org.rundeck.api', name: 'rd-api-client', version: '2.0.3'
+}
+
+xlDocker {
+  compileImage = 'xebialabs/xlr_dev_compile'
+  compileVersion = 'v8.5.0.1'
+  runImage = 'xebialabs/xlr_dev_run'
+  runVersion = 'v8.5.0.1'
+  runPortMapping = '15516:5516'
+}
+
+if (!project.hasProperty('release.scope')) {
+  project.ext['release.scope'] = 'patch'
+}
+
+if (!project.hasProperty('release.useLastTag')) {
+  project.ext['release.useLastTag'] = true
+}
+
+processResources.configure {
+  filesNotMatching('**/*.png') {
+    filter ReplaceTokens, tokens: [
+      'project.version': version.toString(),
+      'project.name'   : rootProject.name
+    ]
+  }
+}
+
+license {
+  header rootProject.file('License.md')
+  exclude '**/docker/**'
+  strictCheck true
+  ext.year = Calendar.getInstance().get(Calendar.YEAR)
+  ext.name = 'XEBIALABS'
+}
+
+jar {
+  from {
+    configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}

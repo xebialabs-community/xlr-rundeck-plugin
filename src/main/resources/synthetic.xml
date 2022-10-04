@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
 
-    Copyright 2019 XEBIALABS
+    Copyright 2022 XEBIALABS
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -18,7 +18,7 @@
                   label="Rundeck Server"
                   kind="ci"
                   referenced-type="rundeck.Server"
-                  category="input" 
+                  category="input"
                   required="true"/>
         <property name="rundeckProject"
                   label="Project"
@@ -46,12 +46,12 @@
         <!-- Output variables -->
 
         <property name="rundeckJobStatus"
-                  category="output" 
-                  required="false" 
+                  category="output"
+                  required="false"
                   description="Job status of rundeck execution" />
-        <property name="rundeckJobDuration" 
-                  category="output" 
-                  required="false" 
+        <property name="rundeckJobDuration"
+                  category="output"
+                  required="false"
                   description="Duration of job execution (only if Wait for Job is selected)" />
         <property name="rundeckExecutionId"
                   category="output"
@@ -61,9 +61,9 @@
 
 
     <type type="rundeck.Server" extends="configuration.HttpConnection" >
-        <property name="rundeckAuthToken" 
-                 required="false" 
-                 category="input" 
+        <property name="rundeckAuthToken"
+                 required="false"
+                 category="input"
                  description="Auth Token (optional if username and password are provided)" />
     </type>
 
